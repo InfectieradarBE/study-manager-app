@@ -1,4 +1,4 @@
-import { Survey, SurveyItem, SurveyGroupItem } from "survey-engine/lib/data_types";
+import { Survey, SurveyItem, SurveyGroupItem } from "survey-engine/data_types";
 import { ItemEditor } from "../../editor-engine/survey-editor/item-editor";
 import { SurveyEditor } from "../../editor-engine/survey-editor/survey-editor";
 import { IntakeQuestions as DefaultIntake } from "../common_question_pool/influenzanet-intake";
@@ -2028,7 +2028,6 @@ const flu_vaccine_this_season = (parentKey: string, isRequired?: boolean, keyOve
     const defaultKey = 'Q10'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -2355,7 +2354,6 @@ const flu_vaccine_this_season_reason_against = (parentKey: string, keyFluVaccine
     const defaultKey = 'Q10d'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -2650,7 +2648,6 @@ const regular_medication = (parentKey: string, isRequired?: boolean, keyOverride
     const defaultKey = 'Q11'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -2841,7 +2838,6 @@ const smoking = (parentKey: string, isRequired?: boolean, keyOverride?: string):
     const defaultKey = 'Q13'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -2999,7 +2995,6 @@ const special_diet = (parentKey: string, isRequired?: boolean, keyOverride?: str
     const defaultKey = 'Q15'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -3161,7 +3156,6 @@ const find_infectieradar = (parentKey: string, isRequired?: boolean, keyOverride
     const defaultKey = 'Q_BE_17'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(

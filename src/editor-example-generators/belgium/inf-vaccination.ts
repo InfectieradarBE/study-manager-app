@@ -1,4 +1,4 @@
-import { Survey, SurveyGroupItem, SurveyItem } from "survey-engine/lib/data_types";
+import { Survey, SurveyGroupItem, SurveyItem } from "survey-engine/data_types";
 import { ItemEditor } from "../../editor-engine/survey-editor/item-editor";
 import { SurveyEditor } from "../../editor-engine/survey-editor/survey-editor";
 import { initMatrixQuestion, initMultipleChoiceGroup, initSingleChoiceGroup, ResponseRowCell } from "../../editor-engine/utils/question-type-generator";
@@ -2269,7 +2269,6 @@ const covid_vac_last_season = (parentKey: string, isRequired?: boolean, keyOverr
     const defaultKey = 'Q10'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -2380,7 +2379,6 @@ const covid_vac_last_season = (parentKey: string, isRequired?: boolean, keyOverr
     const defaultKey = 'Q10b'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -2711,7 +2709,6 @@ const flu_vaccine_this_season_reason_against = (parentKey: string, keyFluVaccine
     const defaultKey = 'Q10d'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -3006,7 +3003,6 @@ const flu_vaccine_this_season_reason_against = (parentKey: string, keyFluVaccine
     const defaultKey = 'Q9'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(

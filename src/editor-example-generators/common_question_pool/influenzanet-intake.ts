@@ -1,4 +1,4 @@
-import { SurveyItem } from "survey-engine/lib/data_types";
+import { SurveyItem } from "survey-engine/data_types";
 import { ComponentEditor } from "../../editor-engine/survey-editor/component-editor";
 import { ItemEditor } from "../../editor-engine/survey-editor/item-editor";
 import { initMatrixQuestion, initMultipleChoiceGroup, initSingleChoiceGroup, ResponseRowCell } from "../../editor-engine/utils/question-type-generator";
@@ -121,7 +121,6 @@ const date_of_birth = (parentKey: string, isRequired?: boolean, keyOverride?: st
     const defaultKey = 'Q2'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -246,7 +245,6 @@ const postal_code = (parentKey: string, isRequired?: boolean, keyOverride?: stri
     const defaultKey = 'Q3'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -393,7 +391,6 @@ const main_activity = (parentKey: string, isRequired?: boolean, keyOverride?: st
     const defaultKey = 'Q4'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -541,7 +538,6 @@ const highest_education = (parentKey: string, isRequired?: boolean, keyOverride?
     const defaultKey = 'Q4d'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -667,7 +663,6 @@ const people_met = (parentKey: string, isRequired?: boolean, keyOverride?: strin
     const defaultKey = 'Q5'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -797,7 +792,6 @@ const age_groups = (parentKey: string, isRequired?: boolean, keyOverride?: strin
     const defaultKey = 'Q6'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -982,7 +976,6 @@ const children_in_school = (parentKey: string, keyOfAgeGroups?: string, isRequir
     const defaultKey = 'Q6b'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -1145,7 +1138,6 @@ const means_of_transport = (parentKey: string, isRequired?: boolean, keyOverride
     const defaultKey = 'Q7'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -1307,7 +1299,6 @@ const pub_transport_duration = (parentKey: string, isRequired?: boolean, keyOver
     const defaultKey = 'Q7b'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -1458,7 +1449,6 @@ const common_cold_frequency = (parentKey: string, isRequired?: boolean, keyOverr
     const defaultKey = 'Q8'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -1596,7 +1586,6 @@ const flu_vaccine_last_season = (parentKey: string, isRequired?: boolean, keyOve
     const defaultKey = 'Q9'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -1727,7 +1716,6 @@ const flu_vaccine_this_season = (parentKey: string, isRequired?: boolean, keyOve
     const defaultKey = 'Q10'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -1846,7 +1834,6 @@ const flu_vaccine_this_season_when = (parentKey: string, keyFluVaccineThisSeason
     const defaultKey = 'Q10b'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -1975,7 +1962,6 @@ const flu_vaccine_this_season_reason_for = (parentKey: string, keyFluVaccineThis
     const defaultKey = 'Q10c'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -2111,7 +2097,6 @@ const flu_vaccine_this_season_reason_against = (parentKey: string, keyFluVaccine
     const defaultKey = 'Q10d'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -2312,7 +2297,6 @@ const regular_medication = (parentKey: string, isRequired?: boolean, keyOverride
     const defaultKey = 'Q11'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -2473,7 +2457,6 @@ const pregnancy = (parentKey: string, keyQGender: string, keyQBirthday: string, 
     const defaultKey = 'Q12'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -2593,7 +2576,6 @@ const pregnancy_trimester = (parentKey: string, keyQGender: string, keyQBirthday
     const defaultKey = 'Q12b'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -2726,7 +2708,6 @@ const smoking = (parentKey: string, isRequired?: boolean, keyOverride?: string):
     const defaultKey = 'Q13'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -2851,7 +2832,6 @@ const allergies = (parentKey: string, isRequired?: boolean, keyOverride?: string
     const defaultKey = 'Q14'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -3019,7 +2999,6 @@ const special_diet = (parentKey: string, isRequired?: boolean, keyOverride?: str
     const defaultKey = 'Q15'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(
@@ -3115,7 +3094,6 @@ const pets = (parentKey: string, isRequired?: boolean, keyOverride?: string): Su
     const defaultKey = 'Q16'
     const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
     const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-    editor.setVersion(1);
 
     // QUESTION TEXT
     editor.setTitleComponent(

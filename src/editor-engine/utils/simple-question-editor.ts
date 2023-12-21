@@ -1,4 +1,4 @@
-import { Expression, ItemComponent } from "survey-engine/lib/data_types";
+import { Expression, ItemComponent } from "survey-engine/data_types";
 import { responseGroupKey } from "../../editor-example-generators/common_question_pool/key-definitions";
 import { ItemEditor } from "../survey-editor/item-editor";
 import { expWithArgs, generateTitleComponent } from "./simple-generators";
@@ -15,7 +15,6 @@ export class SimpleQuestionEditor {
         const itemKey = [parentKey, key].join('.');
         this.key = itemKey;
         this.editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: false });
-        this.editor.setVersion(version);
     }
 
     getItem() {

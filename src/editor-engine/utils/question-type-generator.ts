@@ -1,4 +1,4 @@
-import { ItemGroupComponent, Expression, ComponentProperties, LocalizedObject, ItemComponent, SurveyItem, ExpressionArg, Validation } from "survey-engine/lib/data_types";
+import { ItemGroupComponent, Expression, ComponentProperties, LocalizedObject, ItemComponent, SurveyItem, ExpressionArg, Validation } from "survey-engine/data_types";
 import { ComponentEditor } from "../survey-editor/component-editor";
 import { ItemEditor } from "../survey-editor/item-editor";
 import { CommonExpressions } from "./commonExpressions";
