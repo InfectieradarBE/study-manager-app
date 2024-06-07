@@ -1,0 +1,3 @@
+[submodule "src/editor-example-generators/external/contacts-survey"]
+	path = src/editor-example-generators/external/contacts-survey
+	url = git@github.com:influenzanet/contacts-survey.git
