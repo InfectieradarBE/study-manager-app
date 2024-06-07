@@ -1,5 +1,6 @@
 import { cleanupVaccination } from "./cleanupVaccination"
 import { resetIntake } from "./resetIntake"
 import { resetVaccination } from "./resetVaccination"
+import { updateChildCustom } from "./updateChild"
 
-export const customRules = [ resetIntake, resetVaccination, cleanupVaccination ]
+export const customRules = [ resetIntake, resetVaccination, cleanupVaccination, updateChildCustom ]
