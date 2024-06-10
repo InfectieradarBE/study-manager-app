@@ -20,4 +20,11 @@ export const ParticipantFlags = {
             yes: '1'
         }
     },
+    vaccinationSurveyActive: {
+        key: 'vaccSurveyActive',
+        values: {
+            no: '0',
+            yes: '1'
+        }
+    }
 }

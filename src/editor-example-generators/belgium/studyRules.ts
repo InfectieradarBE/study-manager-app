@@ -110,13 +110,19 @@ const handleVaccination = StudyEngine.ifThen(
         ParticipantFlags.vaccinationCompleted.key,
         ParticipantFlags.vaccinationCompleted.values.yes,
     ),
-    StudyEngine.participantActions.assignedSurveys.add(
-        vaccination.key,
-        "prio",
-        StudyEngine.timestampWithOffset({
-            days: rulesOptions.vaccinationResubmitDays,
-        }),
-    ),
+    StudyEngine.ifThen(
+        StudyEngine.participantState.hasParticipantFlagKeyAndValue(
+            ParticipantFlags.vaccinationSurveyActive.key,
+            ParticipantFlags.vaccinationSurveyActive.values.yes,
+        ),
+        StudyEngine.participantActions.assignedSurveys.add(
+            vaccination.key,
+            "prio",
+            StudyEngine.timestampWithOffset({
+                days: rulesOptions.vaccinationResubmitDays,
+            }),
+        ),
+    )
 );
 
 const setChildFlag = (isOfAge: Expression) =>
@@ -146,10 +152,16 @@ const setChildFlag = (isOfAge: Expression) =>
                     ),
                 ),
             ),
-            StudyEngine.participantActions.assignedSurveys.add(
-                vaccination.key,
-                "prio",
-            ),
+            StudyEngine.ifThen(
+                StudyEngine.participantState.hasParticipantFlagKeyAndValue(
+                    ParticipantFlags.vaccinationSurveyActive.key,
+                    ParticipantFlags.vaccinationSurveyActive.values.yes,
+                ),
+                StudyEngine.participantActions.assignedSurveys.add(
+                    vaccination.key,
+                    "prio",
+                ),
+            )
         ),
         // if child, remove vaccination survey if present
         StudyEngine.if(
@@ -212,6 +224,31 @@ export const updateChild = StudyEngine.ifThen(
     ),
 );
 
+export const updateVaccinationActive = StudyEngine.do(
+    // If vaccination survey is active, add it to all participants
+    StudyEngine.ifThen(
+        StudyEngine.participantState.hasParticipantFlagKeyAndValue(
+            ParticipantFlags.vaccinationSurveyActive.key,
+            ParticipantFlags.vaccinationSurveyActive.values.yes,
+        ),
+        StudyEngine.participantActions.assignedSurveys.add(
+            vaccination.key,
+            "prio",
+        ),
+    ),
+    // If vaccination survey is not active, remove it from all participants
+    StudyEngine.ifThen(
+        StudyEngine.participantState.hasParticipantFlagKeyAndValue(
+            ParticipantFlags.vaccinationSurveyActive.key,
+            ParticipantFlags.vaccinationSurveyActive.values.no,
+        ),
+        StudyEngine.participantActions.assignedSurveys.remove(
+            vaccination.key,
+            "all",
+        ),
+    )
+);
+
 const handleTestingHabits = StudyEngine.ifThen(
     StudyEngine.checkSurveyResponseKey("testing_habits"),
     // remove testing habits survey after first submit
@@ -230,7 +267,8 @@ const submitRules: Expression[] = [
 ];
 
 const timerRules: Expression[] = [
-    updateChild
+    updateChild,
+    updateVaccinationActive,
 ];
 
 /**
