@@ -231,10 +231,17 @@ export const updateVaccinationActive = StudyEngine.do(
             ParticipantFlags.vaccinationSurveyActive.key,
             ParticipantFlags.vaccinationSurveyActive.values.yes,
         ),
-        StudyEngine.participantActions.assignedSurveys.add(
-            vaccination.key,
-            "prio",
-        ),
+        StudyEngine.ifThen(
+            StudyEngine.not(
+                StudyEngine.participantState.hasSurveyKeyAssigned(
+                    vaccination.key,
+                ),
+            ),
+            StudyEngine.participantActions.assignedSurveys.add(
+                vaccination.key,
+                "prio",
+            ),
+        )
     ),
     // If vaccination survey is not active, remove it from all participants
     StudyEngine.ifThen(
