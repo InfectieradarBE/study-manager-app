@@ -97,6 +97,20 @@ const handleWeekly = StudyEngine.ifThen(
     ),
 );
 
+export const checkVaccinationSurveyEligibility = StudyEngine.and(
+    StudyEngine.participantState.hasParticipantFlagKeyAndValue(
+      ParticipantFlags.isChild.key,
+      ParticipantFlags.isChild.values.no
+    ),
+    StudyEngine.participantState.hasParticipantFlagKeyAndValue(
+      ParticipantFlags.vaccinationSurveyActive.key,
+      ParticipantFlags.vaccinationSurveyActive.values.yes
+    ),
+    StudyEngine.not(
+      StudyEngine.participantState.hasSurveyKeyAssigned(vaccination.key)
+    )
+  )
+
 const handleVaccination = StudyEngine.ifThen(
     StudyEngine.checkSurveyResponseKey(vaccination.key),
     // remove vaccination and re-add it with a new timeout
@@ -111,10 +125,7 @@ const handleVaccination = StudyEngine.ifThen(
         ParticipantFlags.vaccinationCompleted.values.yes,
     ),
     StudyEngine.ifThen(
-        StudyEngine.participantState.hasParticipantFlagKeyAndValue(
-            ParticipantFlags.vaccinationSurveyActive.key,
-            ParticipantFlags.vaccinationSurveyActive.values.yes,
-        ),
+        checkVaccinationSurveyEligibility,
         StudyEngine.participantActions.assignedSurveys.add(
             vaccination.key,
             "prio",

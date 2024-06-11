@@ -1,6 +1,5 @@
 import { cleanupVaccination } from "./cleanupVaccination"
-import { enableVaccination } from "./enableVaccination"
-import { disableVaccination } from "./disableVaccination"
+import { enableVaccination, disableVaccination } from "./vaccinationFlags"
 import { resetIntake } from "./resetIntake"
 import { resetVaccination } from "./resetVaccination"
 import { updateChildCustom } from "./updateChild"
