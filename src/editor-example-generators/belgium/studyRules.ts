@@ -3,6 +3,12 @@ import { ParticipantFlags } from "./participantFlags";
 import { StudyEngine } from "case-editor-tools/expression-utils/studyEngineExpressions";
 import { StudyRules } from "case-editor-tools/types/studyRules";
 
+import {
+  entryRules as entryRulesContacts,
+  handleContactsQuestionnaireExpired,
+  handleContactsQuestionnaireSubmission,
+} from "../external/contacts-survey/src/influenzanet-verdi-contact-extension/studyRules";
+
 import intake from "./inf-intake";
 import weekly from "./inf-weekly";
 import vaccination from "./inf-vaccination";
@@ -34,6 +40,7 @@ const entryRules: Expression[] = [
         intake.key,
         "normal",
     ),
+    ...entryRulesContacts(),
 ];
 
 /**
@@ -250,10 +257,12 @@ const submitRules: Expression[] = [
     handleVaccination,
     handleChild,
     handleTestingHabits,
+    handleContactsQuestionnaireSubmission,
 ];
 
 const timerRules: Expression[] = [
     updateChild,
+    handleContactsQuestionnaireExpired(),
 ];
 
 /**
