@@ -1,5 +1,5 @@
 import { StudyEngine } from "case-editor-tools/expression-utils/studyEngineExpressions";
-import { Expression } from "new-survey-engine/data_types/expression";
+import { Expression } from "survey-engine/data_types/expression";
 import { rulesOptions } from "../studyRules";
 
 import intake from "../inf-intake"
