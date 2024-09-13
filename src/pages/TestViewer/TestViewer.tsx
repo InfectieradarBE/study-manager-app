@@ -191,10 +191,7 @@ const TestViewer: React.FC = () => {
                                 color="primary"
                                 variant="outlined"
                                 onClick={() => {
-                                    const exportData = {
-                                        studyKey: studyName,
-                                        survey: survey,
-                                    }
+                                    const exportData = survey;
                                     var a = document.createElement("a");
                                     var file = new Blob([JSON.stringify(exportData, undefined, 2)], { type: 'json' });
                                     a.href = URL.createObjectURL(file);
