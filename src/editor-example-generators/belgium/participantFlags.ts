@@ -1,3 +1,4 @@
+import { StudyEngine } from 'case-editor-tools/expression-utils/studyEngineExpressions'
 export const ParticipantFlags = {
     isChild: {
         key: 'group',
@@ -25,6 +26,14 @@ export const ParticipantFlags = {
         values: {
             no: '0',
             yes: '1'
+        }
+    },
+    gender: {
+        key: 'gender',
+        values: {
+            0: 0,
+            1: 1,
+            2: 2
         }
     }
 }

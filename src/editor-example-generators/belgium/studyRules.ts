@@ -6,6 +6,7 @@ import { StudyRules } from "case-editor-tools/types/studyRules";
 import intake from "./inf-intake";
 import weekly from "./inf-weekly";
 import vaccination from "./inf-vaccination";
+import { symptomsFeedbackReport } from "./reports/symptomsFeedback";
 
 // NOTE: just to be sure these are called before generating rules, might not be
 // necessary, should have already been called
@@ -207,6 +208,14 @@ const handleChild = StudyEngine.ifThen(
     ),
 );
 
+export const updateGenderFlag = StudyEngine.ifThen(
+    StudyEngine.checkSurveyResponseKey(intake.key),
+    StudyEngine.participantActions.updateFlag(
+        ParticipantFlags.gender.key,
+        StudyEngine.getResponseValueAsNum("intake.Q1", "rg.1"),
+    )
+)
+
 /*
  * NOTE: this timer rule, if used, will run every timer cycle. Since
  * currently there is no way of checking a condition against the latest
@@ -250,6 +259,8 @@ const submitRules: Expression[] = [
     handleVaccination,
     handleChild,
     handleTestingHabits,
+    updateGenderFlag,
+    symptomsFeedbackReport(weekly),
 ];
 
 const timerRules: Expression[] = [
