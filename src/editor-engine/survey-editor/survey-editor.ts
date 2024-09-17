@@ -34,7 +34,7 @@ export class SurveyEditor implements SurveyEditorInt {
             this.surveyKey = 'survey';
             this.survey = {
                 props: {},
-                versionId: "what?",
+                versionId: "",
                 surveyDefinition: {
                     key: this.surveyKey,
                     items: []
