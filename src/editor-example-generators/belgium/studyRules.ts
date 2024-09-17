@@ -212,7 +212,7 @@ export const updateGenderFlag = StudyEngine.ifThen(
     StudyEngine.checkSurveyResponseKey(intake.key),
     StudyEngine.participantActions.updateFlag(
         ParticipantFlags.gender.key,
-        StudyEngine.getResponseValueAsNum("intake.Q1", "rg.1"),
+        ParticipantFlags.gender.buildExpression(intake.Q_gender.key),
     )
 )
 

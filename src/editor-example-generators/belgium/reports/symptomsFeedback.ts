@@ -36,7 +36,7 @@ import {
       StudyEngine.participantActions.reports.updateData(
         symptomsFeedbackReportKey,
         reportFields.gender,
-        0,
+        extractGender,
         "string",
       ),
       StudyEngine.participantActions.reports.updateData(

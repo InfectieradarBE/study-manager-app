@@ -1,3 +1,4 @@
+import { responseGroupKey, singleChoiceKey } from 'case-editor-tools/constants/key-definitions'
 import { StudyEngine } from 'case-editor-tools/expression-utils/studyEngineExpressions'
 export const ParticipantFlags = {
     isChild: {
@@ -30,10 +31,11 @@ export const ParticipantFlags = {
     },
     gender: {
         key: 'gender',
-        values: {
-            0: 0,
-            1: 1,
-            2: 2
-        }
+        buildExpression: (gender_key: string) =>
+            StudyEngine.getSelectedKeys(
+                gender_key,
+                `${responseGroupKey}.${singleChoiceKey}`
+            )
     }
 }
+

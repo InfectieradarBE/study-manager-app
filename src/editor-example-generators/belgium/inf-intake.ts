@@ -12,6 +12,7 @@ export type IntakeDef = {
     (): Survey;
     key: string;
     Q_birthdate: SurveyItem;
+    Q_gender: SurveyItem;
 }
 
 const intake = <IntakeDef>((): Survey | undefined => {
@@ -67,6 +68,9 @@ const intake = <IntakeDef>((): Survey | undefined => {
 
     const Q_gender = DefaultIntake.gender(rootKey, true);
     survey.addExistingSurveyItem(Q_gender, rootKey);
+
+    // NOTE: export to be used in rules
+    intake.Q_gender = Q_gender;
 
     const Q_birthdate = DefaultIntake.dateOfBirth(rootKey, true);
     survey.addExistingSurveyItem(Q_birthdate, rootKey);
