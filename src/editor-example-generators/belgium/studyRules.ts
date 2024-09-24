@@ -12,6 +12,7 @@ import {
 import intake from "./inf-intake";
 import weekly from "./inf-weekly";
 import vaccination from "./inf-vaccination";
+import { symptomsFeedbackReport } from "./reports/symptomsFeedback";
 
 // NOTE: just to be sure these are called before generating rules, might not be
 // necessary, should have already been called
@@ -214,6 +215,14 @@ const handleChild = StudyEngine.ifThen(
     ),
 );
 
+export const updateGenderFlag = StudyEngine.ifThen(
+    StudyEngine.checkSurveyResponseKey(intake.key),
+    StudyEngine.participantActions.updateFlag(
+        ParticipantFlags.gender.key,
+        ParticipantFlags.gender.buildExpression(intake.Q_gender.key),
+    )
+)
+
 /*
  * NOTE: this timer rule, if used, will run every timer cycle. Since
  * currently there is no way of checking a condition against the latest
@@ -258,6 +267,8 @@ const submitRules: Expression[] = [
     handleChild,
     handleTestingHabits,
     handleContactsQuestionnaireSubmission,
+    updateGenderFlag,
+    symptomsFeedbackReport(weekly),
 ];
 
 const timerRules: Expression[] = [

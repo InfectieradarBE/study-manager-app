@@ -10,6 +10,7 @@ export type WeeklyDef = {
     (): Survey;
     key: string;
     Q_symptomsEndKey: string;
+    Q_symptoms: SurveyItem; 
 }
 
 const weekly = <WeeklyDef>((): Survey | undefined => {
@@ -115,6 +116,9 @@ const weekly = <WeeklyDef>((): Survey | undefined => {
     // // ----> fever group  - 4 questions
     const feverGroup = InfluenzanetWeekly.feverGroup.all(hasSymptomGroupKey, Q_symptoms.key, Q_symptomStart.key, true);
     survey.addExistingSurveyItem(feverGroup, hasSymptomGroupKey);
+
+    // NOTE: export to be used in feedback report
+    weekly.Q_symptoms = Q_symptoms;
 
     // // Q_BE_7 visited medical service --------------------------------------
     const Q_visitedMedicalService = visitedMedicalService(hasSymptomGroupKey, true, "Q_BE_7");
