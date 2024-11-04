@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { studyRules } from '../editor-example-generators/belgium/studyRules';
+import { studyRules } from '../editor-example-generators/belgium/studies/sensor/studyRules';
 import { customRules } from '../editor-example-generators/belgium/customRules';
 
 interface StudyFileDownloadsProps {
