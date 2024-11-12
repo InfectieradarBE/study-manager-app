@@ -1,12 +1,13 @@
 import { Survey, SurveyItem, SurveyGroupItem } from "survey-engine/data_types";
 import { ItemEditor } from "../../../../editor-engine/survey-editor/item-editor";
-import { SurveyEditor } from "../../../../editor-engine/survey-editor/survey-editor";
-import { generateLocStrings, generateTitleComponent, expWithArgs } from "../../../../editor-engine/utils/simple-generators";
+import { SurveyEditor } from "case-editor-tools/surveys/survey-editor/survey-editor";
+import { generateLocStrings, generateTitleComponent, expWithArgs, generateHelpGroupComponent } from "../../../../editor-engine/utils/simple-generators";
 import { responseGroupKey } from "../../../common_question_pool/key-definitions";
 import { initMultipleChoiceGroup, initSingleChoiceGroup } from "../../../../editor-engine/utils/question-type-generator";
 import { singleChoiceKey } from "../../../common_question_pool/key-definitions";
 import { ComponentEditor } from "../../../../editor-engine/survey-editor/component-editor";
 import { multipleChoiceKey } from "case-editor-tools/constants/key-definitions";
+import { initMatrixQuestion, HeaderRow, ResponseRow, ResponseRowCell, RadioRow } from "case-editor-tools/surveys/responseTypeGenerators/matrixGroupComponent";
 
 export type DiaryDef = {
     (): Survey;
@@ -83,7 +84,17 @@ const diary = <DiaryDef>((): Survey | undefined => {
     const Q_offCampusReason = offCampusReason(offCampusGroupKey, true);
     survey.addExistingSurveyItem(Q_offCampusReason, offCampusGroupKey);
 
+    const Q_contactsMatrix = contactsMatrix(rootKey, true);
+    survey.addExistingSurveyItem(Q_contactsMatrix, rootKey);
 
+    const Q_meetingMatrix = meetingMatrix(rootKey, true);
+    survey.addExistingSurveyItem(Q_meetingMatrix, rootKey);
+
+    const Q_teachingMatrix = teachingMatrkx(rootKey, true);
+    survey.addExistingSurveyItem(Q_teachingMatrix, rootKey);
+
+    // FOR TESTING PURPOSES
+    // survey.setAvailableFor('public');
 
     return survey.getSurvey();
 })
@@ -133,12 +144,21 @@ const campus = (parentKey: string, isRequired?: boolean, keyOverride?: string): 
 
     // QUESTION TEXT
     editor.setTitleComponent(
-        generateTitleComponent(new Map([
-            ["en", "Are you working from your office on the Diepenbeek campus today? (Consider working from your office if you spend any time at the Diepenbeek campus - Hasselt University -, even if you only worked partially from this location.)"],
-            ["nl-be", "Are you working from your office on the Diepenbeek campus today? (Consider working from your office if you spend any time at the Diepenbeek campus - Hasselt University -, even if you only worked partially from this location.)"],
-            ["fr-be", "Are you working from your office on the Diepenbeek campus today? (Consider working from your office if you spend any time at the Diepenbeek campus - Hasselt University -, even if you only worked partially from this location.)"],
-            ["de-be", "Are you working from your office on the Diepenbeek campus today? (Consider working from your office if you spend any time at the Diepenbeek campus - Hasselt University -, even if you only worked partially from this location.)"],
-        ]))
+        generateTitleComponent(
+            new Map([
+                ["en", "Are you working from your office on the Diepenbeek campus today?"],
+                ["nl-be", "Are you working from your office on the Diepenbeek campus today?"],
+                ["fr-be", "Are you working from your office on the Diepenbeek campus today?"],
+                ["de-be", "Are you working from your office on the Diepenbeek campus today?"],
+            ]),
+            new Map([
+                ["en", "Consider working from your office if you spend any time at the Diepenbeek campus - Hasselt University -, even if you only worked partially from this location."],
+                ["nl-be", "Consider working from your office if you spend any time at the Diepenbeek campus - Hasselt University -, even if you only worked partially from this location."],
+                ["fr-be", "Consider working from your office if you spend any time at the Diepenbeek campus - Hasselt University -, even if you only worked partially from this location."],
+                ["de-be", "Consider working from your office if you spend any time at the Diepenbeek campus - Hasselt University -, even if you only worked partially from this location."],
+            ])
+        ),
+        
     );
 
 
@@ -455,3 +475,650 @@ const offCampusReason = (parentKey: string, isRequired?: boolean, keyOverride?: 
 
     return editor.getItem();
 }
+
+const contactsMatrix = (parentKey: string, isRequired?: boolean, keyOverride?: string): SurveyItem => {
+    const defaultKey = 'Q3';
+    const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
+    const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: true });
+
+    // QUESTION TEXT
+    editor.setTitleComponent(
+        generateTitleComponent(
+            new Map([
+                ["en", "Contacts"],
+                ["nl-be", "Contacts"],
+                ["fr-be", "Contacts"],
+                ["de-be", "Contacts"],
+            ]),
+            new Map([
+                ["en", "Report here the contacts you had during the working day (08h00-17h00) while not wearing the sensor, or while wearing the sensor and interacting with non-DSI members or with a DSI member who was not wearing the sensors. If you have work-related contacts outside the working day interval, please report them too."],
+                ["nl-be", "Report here the contacts you had during the working day (08h00-17h00) while not wearing the sensor, or while wearing the sensor and interacting with non-DSI members or with a DSI member who was not wearing the sensors. If you have work-related contacts outside the working day interval, please report them too."],
+                ["fr-be", "Report here the contacts you had during the working day (08h00-17h00) while not wearing the sensor, or while wearing the sensor and interacting with non-DSI members or with a DSI member who was not wearing the sensors. If you have work-related contacts outside the working day interval, please report them too."],
+                ["de-be", "Report here the contacts you had during the working day (08h00-17h00) while not wearing the sensor, or while wearing the sensor and interacting with non-DSI members or with a DSI member who was not wearing the sensors. If you have work-related contacts outside the working day interval, please report them too."],
+            ])
+        )
+    );
+
+    // HEADER ROW
+    const headerRow: HeaderRow = {
+        role: 'headerRow',
+        key: 'header',
+        cells: [
+            {
+                role: 'text', 
+                key: 'ageRange', 
+                content: new Map([
+                    ["en", "Age range (years old)"],
+                    ["nl-be", "Age range (years old)"],
+                    ["fr-be", "Age range (years old)"],
+                    ["de-be", "Age range (years old)"],
+                ])
+            },
+            {
+                role: 'text', 
+                key: 'gender', 
+                content: new Map([
+                    ["en", "Gender"],
+                    ["nl-be", "Gender"],
+                    ["fr-be", "Gender"],
+                    ["de-be", "Gender"],
+                ])
+            },
+            {
+                role: 'text', 
+                key: 'withinWorkingDay', 
+                content: new Map([
+                    ["en", "Within the working day? (08:00 - 17:00)"],
+                    ["nl-be", "Within the working day? (08:00 - 17:00)"],
+                    ["fr-be", "Within the working day? (08:00 - 17:00)"],
+                    ["de-be", "Within the working day? (08:00 - 17:00)"],
+                ])
+            },
+            {
+                role: 'text', 
+                key: 'isDSIMember', 
+                content: new Map([
+                    ["en", "Is the contacted person a member of DSI?"],
+                    ["nl-be", "Is the contacted person a member of DSI?"],
+                    ["fr-be", "Is the contacted person a member of DSI?"],
+                    ["de-be", "Is the contacted person a member of DSI?"],
+                ])
+            },
+            {
+                role: 'text', 
+                key: 'contactFrequency', 
+                content: new Map([
+                    ["en", "How often do you have contact with this person in general?"],
+                    ["nl-be", "How often do you have contact with this person in general?"],
+                    ["fr-be", "How often do you have contact with this person in general?"],
+                    ["de-be", "How often do you have contact with this person in general?"],
+                ])
+            },
+            {
+                role: 'text', 
+                key: 'timeSpent', 
+                content: new Map([
+                    ["en", "Total time spent with the person during the whole day? (hours, round up)"],
+                    ["nl-be", "Total time spent with the person during the whole day? (hours, round up)"],
+                    ["fr-be", "Total time spent with the person during the whole day? (hours, round up)"],
+                    ["de-be", "Total time spent with the person during the whole day? (hours, round up)"],
+                ])
+            },
+        ]
+    };
+
+    // RESPONSE CELLS
+    const rowCells: ResponseRowCell[] = [
+       {role: 'dropDownGroup', key: 'ageRange', items: [
+        {
+            'key': '0',
+            role: 'option',
+            content: new Map([
+                ["en", "0-4"],
+                ["nl-be", "0-4"],
+                ["fr-be", "0-4"],
+                ["de-be", "0-4"],
+            ])
+        },
+        {
+            'key': '1',
+            role: 'option',
+            content: new Map([
+                ["en", "5-18"],
+                ["nl-be", "5-18"],
+                ["fr-be", "5-18"],
+                ["de-be", "5-18"],
+            ])
+        },
+        {
+            'key': '2',
+            role: 'option',
+            content: new Map([
+                ["en", "19-44"],
+                ["nl-be", "19-44"],
+                ["fr-be", "19-44"],
+                ["de-be", "19-44"],
+            ])
+        },
+        {
+            'key': '3',
+            role: 'option',
+            content: new Map([
+                ["en", "45-64"],
+                ["nl-be", "45-64"],
+                ["fr-be", "45-64"],
+                ["de-be", "45-64"],
+            ])
+        },
+        {
+            'key': '4',
+            role: 'option',
+            content: new Map([
+                ["en", "65+"],
+                ["nl-be", "65+"],
+                ["fr-be", "65+"],
+                ["de-be", "65+"],
+            ])
+        },
+       ]},
+       {role: 'dropDownGroup', key: 'gender', items: [
+        {
+            key: '0',
+            role: 'option',
+            content: new Map([
+                ["en", "Male"],
+                ["nl-be", "Male"],
+                ["fr-be", "Male"],
+                ["de-be", "Male"],
+            ])
+        },
+        {
+            key: '1',
+            role: 'option',
+            content: new Map([
+                ["en", "Female"],
+                ["nl-be", "Female"],
+                ["fr-be", "Female"],
+                ["de-be", "Female"],
+            ])
+        },
+        {
+            key: '2',
+            role: 'option',
+            content: new Map([
+                ["en", "Other"],
+                ["nl-be", "Other"],
+                ["fr-be", "Other"],
+                ["de-be", "Other"],
+            ])
+        },
+       ]},
+       {role: 'check', key: 'withinWorkingDay'},
+       {role: 'check', key: 'isDSIMember'},
+       {role: 'dropDownGroup', key: 'contactFrequency', items: [
+        {
+            key: '0',
+            role: 'option',
+            content: new Map([
+                ["en", "Daily"],
+                ["nl-be", "Daily"],
+                ["fr-be", "Daily"],
+                ["de-be", "Daily"],
+            ])
+        },
+        {
+            key: '1',
+            role: 'option',
+            content: new Map([
+                ["en", "Weekly"],
+                ["nl-be", "Weekly"],
+                ["fr-be", "Weekly"],
+                ["de-be", "Weekly"],
+            ])
+        },
+        {
+            key: '2',
+            role: 'option',
+            content: new Map([
+                ["en", "Monthly"],
+                ["nl-be", "Monthly"],
+                ["fr-be", "Monthly"],
+                ["de-be", "Monthly"],
+            ])
+        },
+        {
+            key: '4',
+            role: 'option',
+            content: new Map([
+                ["en", "A few times a year"],
+                ["nl-be", "A few times a year"],
+                ["fr-be", "A few times a year"],
+                ["de-be", "A few times a year"],
+            ])
+        },
+        {
+            key: '5',
+            role: 'option',
+            content: new Map([
+                ["en", "For the first time"],
+                ["nl-be", "For the first time"],
+                ["fr-be", "For the first time"],
+                ["de-be", "For the first time"],
+            ])
+        },
+       ]},
+       {role: 'dropDownGroup', key: 'timeSpent', items: [
+        {
+            key: '0',
+            role: 'option',
+            content: new Map([
+                ["en", "Less than 5 minutes"],
+                ["nl-be", "Less than 5 minutes"],
+                ["fr-be", "Less than 5 minutes"],
+                ["de-be", "Less than 5 minutes"],
+            ])
+        },
+        {
+            key: '1',
+            role: 'option',
+            content: new Map([
+                ["en", "5-15 minutes"],
+                ["nl-be", "5-15 minutes"],
+                ["fr-be", "5-15 minutes"],
+                ["de-be", "5-15 minutes"],
+            ])
+        },
+        {
+            key: '2',
+            role: 'option',
+            content: new Map([
+                ["en", "15-60 minutes"],
+                ["nl-be", "15-60 minutes"],
+                ["fr-be", "15-60 minutes"],
+                ["de-be", "15-60 minutes"],
+            ])
+        },
+        {
+            key: '3',
+            role: 'option',
+            content: new Map([
+                ["en", "1-4 hours"],
+                ["nl-be", "1-4 hours"],
+                ["fr-be", "1-4 hours"],
+                ["de-be", "1-4 hours"],
+            ])
+        },
+        {
+            key: '4',
+            role: 'option',
+            content: new Map([
+                ["en", "Over 4 hours"],
+                ["nl-be", "Over 4 hours"],
+                ["fr-be", "Over 4 hours"],
+                ["de-be", "Over 4 hours"],
+            ])
+        },
+       ]},
+    ]
+
+    // BUILD ROWS
+    const amountOfRows = 30;
+    const rows: ResponseRow[] = [];
+    for (let i = 0; i < amountOfRows; i++) {
+        const row: ResponseRow = {
+            role: 'responseRow',
+            key: i.toString(),
+            cells: rowCells,
+        };
+        rows.push(row);
+    }
+
+    // ADD MATRIX QUESTION
+    const matrix = initMatrixQuestion(itemKey, [headerRow, ...rows]);
+
+    const rg = editor.addNewResponseComponent({ role: 'responseGroup' });
+    editor.addExistingResponseComponent(matrix, rg?.key);
+
+    // VALIDATION
+    if (isRequired) {
+        editor.addValidation({
+            key: 'r1',
+            type: 'soft',
+            rule: expWithArgs('allRowsFilled', itemKey, 'responseGroup')
+        });
+    }
+
+
+
+    return editor.getItem();
+    
+}
+
+const meetingMatrix = (parentKey: string, isRequired?: boolean, keyOverride?: string): SurveyItem => {
+    const defaultKey = 'Q4';
+    const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
+    const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: true });
+
+    // QUESTION TEXT
+    editor.setTitleComponent(
+        generateTitleComponent(
+            new Map([
+                ["en", "Meetings or academic events"],
+                ["nl-be", "Meetings or academic events"],
+                ["fr-be", "Meetings or academic events"],
+                ["de-be", "Meetings or academic events"],
+            ]),
+            new Map([
+                ["en", "Did you participate in any meeting, seminar, workshop today in person? If yes, please provide the duration, the estimated number of attendees (please include the DSI members in the attendance), if it took place at the campus Diepenbeek within the working day."],
+                ["nl-be", "Did you participate in any meeting, seminar, workshop today in person? If yes, please provide the duration, the estimated number of attendees (please include the DSI members in the attendance), if it took place at the campus Diepenbeek within the working day."],
+                ["fr-be", "Did you participate in any meeting, seminar, workshop today in person? If yes, please provide the duration, the estimated number of attendees (please include the DSI members in the attendance), if it took place at the campus Diepenbeek within the working day."],
+                ["de-be", "Did you participate in any meeting, seminar, workshop today in person? If yes, please provide the duration, the estimated number of attendees (please include the DSI members in the attendance), if it took place at the campus Diepenbeek within the working day."],
+            ])
+        )
+    );
+
+    // HEADER ROW
+    const headerRow: HeaderRow = {
+        role: 'headerRow',
+        key: 'header',
+        cells: [
+            {
+                role: 'text', 
+                key: 'activity', 
+                content: new Map([
+                    ["en", "Meeting type"],
+                    ["nl-be", "Meeting type"],
+                    ["fr-be", "Meeting type"],
+                    ["de-be", "Meeting type"],
+                ])
+            },
+            {
+                role: 'text', 
+                key: 'onCampus', 
+                content: new Map([
+                    ["en", "At the Diepenbeek campus?"],
+                    ["nl-be", "At the Diepenbeek campus?"],
+                    ["fr-be", "At the Diepenbeek campus?"],
+                    ["de-be", "At the Diepenbeek campus?"],
+                ])
+            },
+            {
+                role: 'text', 
+                key: 'withinWorkingDay', 
+                content: new Map([
+                    ["en", "Within the working day? (08:00 - 17:00)"],
+                    ["nl-be", "Within the working day? (08:00 - 17:00)"],
+                    ["fr-be", "Within the working day? (08:00 - 17:00)"],
+                    ["de-be", "Within the working day? (08:00 - 17:00)"],
+                ])
+            },
+            {
+                role: 'text', 
+                key: 'numberAttendees', 
+                content: new Map([
+                    ["en", "Number of attendees"],
+                    ["nl-be", "Number of attendees"],
+                    ["fr-be", "Number of attendees"],
+                    ["de-be", "Number of attendees"],
+                ])
+            },
+            {
+                role: 'text', 
+                key: 'duration', 
+                content: new Map([
+                    ["en", "Duration (minutes)"],
+                    ["nl-be", "Duration (minutes)"],
+                    ["fr-be", "Duration (minutes)"],
+                    ["de-be", "Duration (minutes)"],
+                ])
+            }
+        ]
+    };
+
+    // RESPONSE CELLS
+    const rowCells: ResponseRowCell[] = [
+        {role: 'dropDownGroup', key: 'activity', items: [
+            {
+                'key': '0', 
+                role: 'option', 
+                content: new Map([
+                    ["en", "Meeting"], 
+                    ["nl-be", "Meeting"], 
+                    ["fr-be", "Meeting"], 
+                    ["de-be", "Meeting"]
+                ])
+            },
+            {
+                'key': '1', 
+                role: 'option', 
+                content: new Map([
+                    ["en", "Seminar"], 
+                    ["nl-be", "Seminar"], 
+                    ["fr-be", "Seminar"], 
+                    ["de-be", "Seminar"]
+                ])
+            },
+            {
+                'key': '2', 
+                role: 'option', 
+                content: new Map([
+                    ["en", "Workshop"], 
+                    ["nl-be", "Workshop"], 
+                    ["fr-be", "Workshop"], 
+                    ["de-be", "Workshop"]
+                ])
+            },
+            {
+                'key': '3', 
+                role: 'option', 
+                content: new Map([
+                    ["en", "Other"], 
+                    ["nl-be", "Other"], 
+                    ["fr-be", "Other"], 
+                    ["de-be", "Other"]
+                ])
+            },
+        ]},
+        {role: 'check', key: 'onCampus'},
+        {role: 'check', key: 'withinWorkingDay'},
+        {role: 'numberInput', key: 'numberAttendees'},
+        {role: 'numberInput', key: 'duration'},
+    ]
+
+    // BUILD ROWS
+    const amountOfRows = 10;
+    const rows: ResponseRow[] = [];
+    for (let i = 0; i < amountOfRows; i++) {
+        const row: ResponseRow = {
+            role: 'responseRow',
+            key: i.toString(),
+            cells: rowCells,
+        };
+        rows.push(row);
+    }
+
+    // ADD MATRIX QUESTION
+    const matrix = initMatrixQuestion(itemKey, [headerRow, ...rows]);
+
+    const rg = editor.addNewResponseComponent({ role: 'responseGroup' });
+    editor.addExistingResponseComponent(matrix, rg?.key);
+
+    // VALIDATION
+    if (isRequired) {
+        editor.addValidation({
+            key: 'r1',
+            type: 'soft',
+            rule: expWithArgs('allRowsFilled', itemKey, 'responseGroup')
+        });
+    }
+
+
+
+    return editor.getItem();
+    
+}
+
+const teachingMatrkx = (parentKey: string, isRequired?: boolean, keyOverride?: string): SurveyItem => {
+    const defaultKey = 'Q5';
+    const itemKey = [parentKey, keyOverride ? keyOverride : defaultKey].join('.');
+    const editor = new ItemEditor(undefined, { itemKey: itemKey, isGroup: true });
+
+    // QUESTION TEXT
+    editor.setTitleComponent(
+        generateTitleComponent(
+            new Map([
+                ["en", "Teaching activities"],
+                ["nl-be", "Teaching activities"],
+                ["fr-be", "Teaching activities"],
+                ["de-be", "Teaching activities"],
+            ]),
+            new Map([
+                ["en", "Have you been conducting in-person teaching activities today? If yes, please list the type of activities among: lecture, workshop, seminar, others, and report the duration and an estimate of the number of attendees."],
+                ["nl-be", "Have you been conducting in-person teaching activities today? If yes, please list the type of activities among: lecture, workshop, seminar, others, and report the duration and an estimate of the number of attendees."],
+                ["fr-be", "Have you been conducting in-person teaching activities today? If yes, please list the type of activities among: lecture, workshop, seminar, others, and report the duration and an estimate of the number of attendees."],
+                ["de-be", "Have you been conducting in-person teaching activities today? If yes, please list the type of activities among: lecture, workshop, seminar, others, and report the duration and an estimate of the number of attendees."],
+            ])
+        )
+    );
+
+    // HEADER ROW
+    const headerRow: HeaderRow = {
+        role: 'headerRow',
+        key: 'header',  
+        cells: [
+            {
+                role: 'text', 
+                key: 'activity', 
+                content: new Map([
+                    ["en", "Teaching activity"],
+                    ["nl-be", "Teaching activity"],
+                    ["fr-be", "Teaching activity"],
+                    ["de-be", "Teaching activity"],
+                ])
+            },
+            {
+                role: 'text', 
+                key: 'onCampus', 
+                content: new Map([
+                    ["en", "At the Diepenbeek campus?"],
+                    ["nl-be", "At the Diepenbeek campus?"],
+                    ["fr-be", "At the Diepenbeek campus?"],
+                    ["de-be", "At the Diepenbeek campus?"],
+                ])
+            },
+            {
+                role: 'text', 
+                key: 'withinWorkingDay', 
+                content: new Map([
+                    ["en", "Within the working day? (08:00 - 17:00)"],
+                    ["nl-be", "Within the working day? (08:00 - 17:00)"],
+                    ["fr-be", "Within the working day? (08:00 - 17:00)"],
+                    ["de-be", "Within the working day? (08:00 - 17:00)"],
+                ])
+            },
+            {
+                role: 'text', 
+                key: 'numberAttendees', 
+                content: new Map([
+                    ["en", "Number of attendees"],
+                    ["nl-be", "Number of attendees"],
+                    ["fr-be", "Number of attendees"],
+                    ["de-be", "Number of attendees"],
+                ])
+            },
+            {
+                role: 'text', 
+                key: 'duration', 
+                content: new Map([
+                    ["en", "Duration (minutes)"],
+                    ["nl-be", "Duration (minutes)"],
+                    ["fr-be", "Duration (minutes)"],
+                    ["de-be", "Duration (minutes)"],
+                ])
+            }
+        ]
+    };
+
+    // RESPONSE CELLS
+    const rowCells: ResponseRowCell[] = [
+        {role: 'dropDownGroup', key: 'activity', items: [
+            {
+                key: '0',
+                role: 'option',
+                content: new Map([
+                    ["en", "Lecture"],
+                    ["nl-be", "Lecture"],
+                    ["fr-be", "Lecture"],
+                    ["de-be", "Lecture"],
+                ])
+            },
+            {
+                key: '1',
+                role: 'option',
+                content: new Map([
+                    ["en", "Workshop"],
+                    ["nl-be", "Workshop"],
+                    ["fr-be", "Workshop"],
+                    ["de-be", "Workshop"],
+                ])
+            },
+            {
+                key: '2',
+                role: 'option',
+                content: new Map([
+                    ["en", "Seminar"],
+                    ["nl-be", "Seminar"],
+                    ["fr-be", "Seminar"],
+                    ["de-be", "Seminar"],
+                ])
+            },
+            {
+                key: '3',
+                role: 'option',
+                content: new Map([
+                    ["en", "Other"],
+                    ["nl-be", "Other"],
+                    ["fr-be", "Other"],
+                    ["de-be", "Other"],
+                ])
+            },
+        ]},
+        {role: 'check', key: 'onCampus'},
+        {role: 'check', key: 'withinWorkingDay'},
+        {role: 'numberInput', key: 'numberAttendees'},
+        {role: 'numberInput', key: 'duration'},
+    ]
+
+    // BUILD ROWS
+    const amountOfRows = 5;
+    const rows: ResponseRow[] = [];
+    for (let i = 0; i < amountOfRows; i++) {
+        const row: ResponseRow = {
+            role: 'responseRow',
+            key: i.toString(),
+            cells: rowCells,
+        };
+        rows.push(row);
+    }
+
+    // ADD MATRIX QUESTION
+    const matrix = initMatrixQuestion(itemKey, [headerRow, ...rows]);
+
+    const rg = editor.addNewResponseComponent({ role: 'responseGroup' });
+    editor.addExistingResponseComponent(matrix, rg?.key);
+
+    // VALIDATION
+    if (isRequired) {
+        editor.addValidation({
+            key: 'r1',
+            type: 'soft',
+            rule: expWithArgs('allRowsFilled', itemKey, 'responseGroup')
+        });
+    }
+
+
+
+    return editor.getItem();
+    
+}
+

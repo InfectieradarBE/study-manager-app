@@ -3985,10 +3985,10 @@ capture-exit@^2.0.0:
   dependencies:
     rsvp "^4.8.4"
 
-case-editor-tools@1.6.4:
-  version "1.6.4"
-  resolved "https://registry.yarnpkg.com/case-editor-tools/-/case-editor-tools-1.6.4.tgz#fa8635cc24d639daba3d7c5ebac332603dcbeda2"
-  integrity sha512-h1/r6AY5H0VEPkaudHR74rnp43lHTrkdPp2gG8uCjbH/MFvXW36cQdjpPynl8jBt6/qnPAmOOSaWFy0e0eGzEA==
+case-editor-tools@1.6.8:
+  version "1.6.8"
+  resolved "https://registry.yarnpkg.com/case-editor-tools/-/case-editor-tools-1.6.8.tgz#31dbaf3586a362c9d53fce079ec22425489fcfa7"
+  integrity sha512-GkRUVeHbwUx0WsK7WXCYHb+6Xf8i7c5DFsK03QrSjxz0W5AHedfXU3pSnQHyUDP+DB8iP5k1geggZN1f9XGG3A==
   dependencies:
     survey-engine "^1.2.0"
 
