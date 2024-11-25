@@ -94,7 +94,7 @@ const diary = <DiaryDef>((): Survey | undefined => {
     survey.addExistingSurveyItem(Q_teachingMatrix, rootKey);
 
     // FOR TESTING PURPOSES
-    // survey.setAvailableFor('public');
+    survey.setAvailableFor('public');
 
     return survey.getSurvey();
 })
@@ -109,12 +109,21 @@ const date = (parentKey: string, isRequired?: boolean, keyOverride?: string): Su
 
     // QUESTION TEXT
     editor.setTitleComponent(
-        generateTitleComponent(new Map([
-            ["en", "What date will you be reporting on?"],
-            ["nl-be", "What date will you be reporting on?"],
-            ["fr-be", "What date will you be reporting on?"],
-            ["de-be", "What date will you be reporting on?"],
-        ]))
+        generateTitleComponent(
+            new Map([
+                ["en", "What date will you be reporting on?"],
+                ["nl-be", "What date will you be reporting on?"],
+                ["fr-be", "What date will you be reporting on?"],
+                ["de-be", "What date will you be reporting on?"],
+            ]),
+            new Map([
+                ["en", "In the following questions, 'today' refers to the date you are reporting on."],
+                ["nl-be", "In the following questions, 'today' refers to the date you are reporting on."],
+                ["fr-be", "In the following questions, 'today' refers to the date you are reporting on."],
+                ["de-be", "In the following questions, 'today' refers to the date you are reporting on."],
+            ])
+        ),
+        
     );
 
     // RESPONSE PART
@@ -485,16 +494,16 @@ const contactsMatrix = (parentKey: string, isRequired?: boolean, keyOverride?: s
     editor.setTitleComponent(
         generateTitleComponent(
             new Map([
-                ["en", "Contacts"],
-                ["nl-be", "Contacts"],
-                ["fr-be", "Contacts"],
-                ["de-be", "Contacts"],
+                ["en", "Contacts - A contact is defined as an in-person interaction where you exchanged at least a few words (less than 1.5m), or where you had a physical touch (e.g, a handshake, embracing, kissing)."],
+                ["nl-be", "Contacts - A contact is defined as an in-person interaction where you exchanged at least a few words (less than 1.5m), or where you had a physical touch (e.g, a handshake, embracing, kissing)."],
+                ["fr-be", "Contacts - A contact is defined as an in-person interaction where you exchanged at least a few words (less than 1.5m), or where you had a physical touch (e.g, a handshake, embracing, kissing)."],
+                ["de-be", "Contacts - A contact is defined as an in-person interaction where you exchanged at least a few words (less than 1.5m), or where you had a physical touch (e.g, a handshake, embracing, kissing)."],
             ]),
             new Map([
-                ["en", "Report here the contacts you had during the working day (08h00-17h00) while not wearing the sensor, or while wearing the sensor and interacting with non-DSI members or with a DSI member who was not wearing the sensors. If you have work-related contacts outside the working day interval, please report them too."],
-                ["nl-be", "Report here the contacts you had during the working day (08h00-17h00) while not wearing the sensor, or while wearing the sensor and interacting with non-DSI members or with a DSI member who was not wearing the sensors. If you have work-related contacts outside the working day interval, please report them too."],
-                ["fr-be", "Report here the contacts you had during the working day (08h00-17h00) while not wearing the sensor, or while wearing the sensor and interacting with non-DSI members or with a DSI member who was not wearing the sensors. If you have work-related contacts outside the working day interval, please report them too."],
-                ["de-be", "Report here the contacts you had during the working day (08h00-17h00) while not wearing the sensor, or while wearing the sensor and interacting with non-DSI members or with a DSI member who was not wearing the sensors. If you have work-related contacts outside the working day interval, please report them too."],
+                ["en", "Report here the contacts you had during the working day (08h00-17h00) while not wearing the sensor, or while wearing the sensor and interacting with DSI or non-DSI members not wearing a sensor. Please report all the contacts that you had during the working day, even if not work-related. If you have work-related contacts outside the working day interval, please report them too. (Do not account here for teaching activities, meetings and academic events.)"],
+                ["nl-be", "Report here the contacts you had during the working day (08h00-17h00) while not wearing the sensor, or while wearing the sensor and interacting with DSI or non-DSI members not wearing a sensor. Please report all the contacts that you had during the working day, even if not work-related. If you have work-related contacts outside the working day interval, please report them too. (Do not account here for teaching activities, meetings and academic events.)"],
+                ["fr-be", "Report here the contacts you had during the working day (08h00-17h00) while not wearing the sensor, or while wearing the sensor and interacting with DSI or non-DSI members not wearing a sensor. Please report all the contacts that you had during the working day, even if not work-related. If you have work-related contacts outside the working day interval, please report them too. (Do not account here for teaching activities, meetings and academic events.)"],
+                ["de-be", "Report here the contacts you had during the working day (08h00-17h00) while not wearing the sensor, or while wearing the sensor and interacting with DSI or non-DSI members not wearing a sensor. Please report all the contacts that you had during the working day, even if not work-related. If you have work-related contacts outside the working day interval, please report them too. (Do not account here for teaching activities, meetings and academic events.)"],
             ])
         )
     );
@@ -508,10 +517,10 @@ const contactsMatrix = (parentKey: string, isRequired?: boolean, keyOverride?: s
                 role: 'text', 
                 key: 'ageRange', 
                 content: new Map([
-                    ["en", "Age range (years old)"],
-                    ["nl-be", "Age range (years old)"],
-                    ["fr-be", "Age range (years old)"],
-                    ["de-be", "Age range (years old)"],
+                    ["en", "Age group of the contacted person."],
+                    ["nl-be", "Age group of the contacted person."],
+                    ["fr-be", "Age group of the contacted person."],
+                    ["de-be", "Age group of the contacted person."],
                 ])
             },
             {
@@ -558,10 +567,10 @@ const contactsMatrix = (parentKey: string, isRequired?: boolean, keyOverride?: s
                 role: 'text', 
                 key: 'timeSpent', 
                 content: new Map([
-                    ["en", "Total time spent with the person during the whole day? (hours, round up)"],
-                    ["nl-be", "Total time spent with the person during the whole day? (hours, round up)"],
-                    ["fr-be", "Total time spent with the person during the whole day? (hours, round up)"],
-                    ["de-be", "Total time spent with the person during the whole day? (hours, round up)"],
+                    ["en", "Total time spent with the person during the whole day?"],
+                    ["nl-be", "Total time spent with the person during the whole day?"],
+                    ["fr-be", "Total time spent with the person during the whole day?"],
+                    ["de-be", "Total time spent with the person during the whole day?"],
                 ])
             },
         ]
@@ -574,50 +583,170 @@ const contactsMatrix = (parentKey: string, isRequired?: boolean, keyOverride?: s
             'key': '0',
             role: 'option',
             content: new Map([
-                ["en", "0-4"],
-                ["nl-be", "0-4"],
-                ["fr-be", "0-4"],
-                ["de-be", "0-4"],
+                ["en", "Under 1"],
+                ["nl-be", "Under 1"],
+                ["fr-be", "Under 1"],
+                ["de-be", "Under 1"],
             ])
         },
         {
             'key': '1',
             role: 'option',
             content: new Map([
-                ["en", "5-18"],
-                ["nl-be", "5-18"],
-                ["fr-be", "5-18"],
-                ["de-be", "5-18"],
+                ["en", "1-4"],
+                ["nl-be", "1-4"],
+                ["fr-be", "1-4"],
+                ["de-be", "1-4"],
             ])
         },
         {
             'key': '2',
             role: 'option',
             content: new Map([
-                ["en", "19-44"],
-                ["nl-be", "19-44"],
-                ["fr-be", "19-44"],
-                ["de-be", "19-44"],
+                ["en", "5-9"],
+                ["nl-be", "5-9"],
+                ["fr-be", "5-9"],
+                ["de-be", "5-9"],
             ])
         },
         {
             'key': '3',
             role: 'option',
             content: new Map([
-                ["en", "45-64"],
-                ["nl-be", "45-64"],
-                ["fr-be", "45-64"],
-                ["de-be", "45-64"],
+                ["en", "10-14"],
+                ["nl-be", "10-14"],
+                ["fr-be", "10-14"],
+                ["de-be", "10-14"],
             ])
         },
         {
             'key': '4',
             role: 'option',
             content: new Map([
-                ["en", "65+"],
-                ["nl-be", "65+"],
-                ["fr-be", "65+"],
-                ["de-be", "65+"],
+                ["en", "15-19"],
+                ["nl-be", "15-19"],
+                ["fr-be", "15-19"],
+                ["de-be", "15-19"],
+            ])
+        },
+        {
+            'key': '5',
+            role: 'option',
+            content: new Map([
+                ["en", "20-24"],
+                ["nl-be", "20-24"],
+                ["fr-be", "20-24"],
+                ["de-be", "20-24"],
+            ])
+        },
+        {
+            'key': '6',
+            role: 'option',
+            content: new Map([
+                ["en", "25-34"],
+                ["nl-be", "25-34"],
+                ["fr-be", "25-34"],
+                ["de-be", "25-34"],
+            ])
+        },
+        {
+            'key': '7',
+            role: 'option',
+            content: new Map([
+                ["en", "35-44"],
+                ["nl-be", "35-44"],
+                ["fr-be", "35-44"],
+                ["de-be", "35-44"],
+            ])
+        },
+        {
+            'key': '8',
+            role: 'option',
+            content: new Map([
+                ["en", "45-54"],
+                ["nl-be", "45-54"],
+                ["fr-be", "45-54"],
+                ["de-be", "45-54"],
+            ])
+        },
+        {
+            'key': '9',
+            role: 'option',
+            content: new Map([
+                ["en", "55-64"],
+                ["nl-be", "55-64"],
+                ["fr-be", "55-64"],
+                ["de-be", "55-64"],
+            ])
+        },
+        {
+            'key': '10',
+            role: 'option',
+            content: new Map([
+                ["en", "65-69"],
+                ["nl-be", "65-69"],
+                ["fr-be", "65-69"],
+                ["de-be", "65-69"],
+            ])
+        },
+        {
+            'key': '11',
+            role: 'option',
+            content: new Map([
+                ["en", "70-74"],
+                ["nl-be", "70-74"],
+                ["fr-be", "70-74"],
+                ["de-be", "70-74"],
+            ])
+        },
+        {
+            'key': '12',
+            role: 'option',
+            content: new Map([
+                ["en", "75-79"],
+                ["nl-be", "75-79"],
+                ["fr-be", "75-79"],
+                ["de-be", "75-79"],
+            ])
+        },
+        {
+            'key': '13',
+            role: 'option',
+            content: new Map([
+                ["en", "80-84"],
+                ["nl-be", "80-84"],
+                ["fr-be", "80-84"],
+                ["de-be", "80-84"],
+            ])
+        },
+        {
+            'key': '14',
+            role: 'option',
+            content: new Map([
+                ["en", "85+"],
+                ["nl-be", "85+"],
+                ["fr-be", "85+"],
+                ["de-be", "85+"],
+            ])
+        },
+        {
+            'key': '15',
+            role: 'option',
+            content: new Map([
+                ["en", "Don't know"],
+                ["nl-be", "Don't know"],
+                ["fr-be", "Don't know"],
+                ["de-be", "Don't know"],
+            ])
+        },
+        {
+            'key': '16',
+            role: 'option',
+            content: new Map([
+                ["en", "Prefer not to answer"],
+                ["nl-be", "Prefer not to answer"],
+                ["fr-be", "Prefer not to answer"],
+                ["de-be", "Prefer not to answer"],
             ])
         },
        ]},
@@ -826,10 +955,10 @@ const meetingMatrix = (parentKey: string, isRequired?: boolean, keyOverride?: st
                 role: 'text', 
                 key: 'activity', 
                 content: new Map([
-                    ["en", "Meeting type"],
-                    ["nl-be", "Meeting type"],
-                    ["fr-be", "Meeting type"],
-                    ["de-be", "Meeting type"],
+                    ["en", "Type"],
+                    ["nl-be", "Type"],
+                    ["fr-be", "Type"],
+                    ["de-be", "Type"],
                 ])
             },
             {

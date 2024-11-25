@@ -1,6 +1,6 @@
 import { Survey, SurveyItem, SurveyGroupItem } from "survey-engine/data_types";
 import { ItemEditor } from "../../../../editor-engine/survey-editor/item-editor";
-import { SurveyEditor } from "../../../../editor-engine/survey-editor/survey-editor";
+import { SurveyEditor } from "case-editor-tools/surveys/survey-editor/survey-editor";
 import { generateLocStrings, generateTitleComponent, expWithArgs } from "../../../../editor-engine/utils/simple-generators";
 import { responseGroupKey } from "../../../common_question_pool/key-definitions";
 import { initSingleChoiceGroup } from "../../../../editor-engine/utils/question-type-generator";
@@ -75,6 +75,9 @@ const intake = <IntakeDef>((): Survey | undefined => {
 
     const Q_amount_of_people = amount_of_people(rootKey, true);
     survey.addExistingSurveyItem(Q_amount_of_people, rootKey);
+
+    // FOR TESTING PURPOSES
+    survey.setAvailableFor('public');
 
     return survey.getSurvey();
 })
@@ -233,27 +236,11 @@ const nationality = (parentKey: string, isRequired?: boolean, keyOverride?: stri
 
     // RESPONSE PART
     const rg = editor.addNewResponseComponent({ role: 'responseGroup' });
-    const rg_inner = initSingleChoiceGroup(singleChoiceKey, [
-        {
-            key: '0', role: 'option',
-            content: new Map([
-                ["en", "Belgian"],
-                ["nl-be", "Belgian"],
-                ["fr-be", "Belgian"],
-                ["de-be", "Belgian"],
-            ])
-        },
-        {
-            key: '1', role: 'input',
-            content: new Map([
-                ["en", "Other"],
-                ["nl-be", "Other"],
-                ["fr-be", "Other"],
-                ["de-be", "Other"],
-            ])
-        },
-    ]);
-    editor.addExistingResponseComponent(rg_inner, rg?.key);
+    const textInputEditor = new ComponentEditor(undefined, {
+        key: '0',
+        role: 'input',
+    });
+    editor.addExistingResponseComponent(textInputEditor.getComponent(), rg?.key);
 
     // VALIDATIONs
     if (isRequired) {
@@ -544,7 +531,7 @@ const amount_of_people = (parentKey: string, isRequired?: boolean, keyOverride?:
     // RESPONSE PART
     const rg = editor.addNewResponseComponent({ role: 'responseGroup' });
     const textInputEditor = new ComponentEditor(undefined, {
-        key: '1',
+        key: '0',
         role: 'numberInput',
     });
     editor.addExistingResponseComponent(textInputEditor.getComponent(), rg?.key);

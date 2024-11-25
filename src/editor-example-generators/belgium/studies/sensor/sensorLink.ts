@@ -1,6 +1,6 @@
 import { Survey, SurveyItem, SurveyGroupItem } from "survey-engine/data_types";
 import { ItemEditor } from "../../../../editor-engine/survey-editor/item-editor";
-import { SurveyEditor } from "../../../../editor-engine/survey-editor/survey-editor";
+import { SurveyEditor } from "case-editor-tools/surveys/survey-editor/survey-editor";
 import { generateLocStrings, generateTitleComponent, expWithArgs } from "../../../../editor-engine/utils/simple-generators";
 import { responseGroupKey } from "../../../common_question_pool/key-definitions";
 import { ComponentEditor } from "../../../../editor-engine/survey-editor/component-editor";
@@ -57,6 +57,9 @@ const sensorLink = <SensorLinkDef>((): Survey | undefined => {
 
     const Q_id = sensor_id(rootKey, true);
     survey.addExistingSurveyItem(Q_id, rootKey);
+
+    // FOR TESTING PURPOSES
+    survey.setAvailableFor('public');
 
     return survey.getSurvey();
 })
