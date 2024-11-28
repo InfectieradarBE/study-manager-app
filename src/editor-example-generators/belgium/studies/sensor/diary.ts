@@ -43,10 +43,10 @@ const diary = <DiaryDef>((): Survey | undefined => {
     ));
     survey.setSurveyDuration(generateLocStrings(
         new Map([
-            ["en", "It takes approximately 10-15 minutes to complete this questionnaire."],
-            ["nl-be", "It takes approximately 10-15 minutes to complete this questionnaire."],
-            ["fr-be", "It takes approximately 10-15 minutes to complete this questionnaire."],
-            ["de-be", "It takes approximately 10-15 minutes to complete this questionnaire."],
+            ["en", "It takes approximately 1-5 minutes to complete this questionnaire."],
+            ["nl-be", "It takes approximately 1-5 minutes to complete this questionnaire."],
+            ["fr-be", "It takes approximately 1-5 minutes to complete this questionnaire."],
+            ["de-be", "It takes approximately 1-5 minutes to complete this questionnaire."],
         ])
     ));
 
@@ -94,7 +94,7 @@ const diary = <DiaryDef>((): Survey | undefined => {
     survey.addExistingSurveyItem(Q_teachingMatrix, rootKey);
 
     // FOR TESTING PURPOSES
-    survey.setAvailableFor('public');
+    // survey.setAvailableFor('public');
 
     return survey.getSurvey();
 })
@@ -117,10 +117,10 @@ const date = (parentKey: string, isRequired?: boolean, keyOverride?: string): Su
                 ["de-be", "What date will you be reporting on?"],
             ]),
             new Map([
-                ["en", "In the following questions, 'today' refers to the date you are reporting on."],
-                ["nl-be", "In the following questions, 'today' refers to the date you are reporting on."],
-                ["fr-be", "In the following questions, 'today' refers to the date you are reporting on."],
-                ["de-be", "In the following questions, 'today' refers to the date you are reporting on."],
+                ["en", "In the following questions 'today' refers to the date you are reporting on."],
+                ["nl-be", "In the following questions 'today' refers to the date you are reporting on."],
+                ["fr-be", "In the following questions 'today' refers to the date you are reporting on."],
+                ["de-be", "In the following questions 'today' refers to the date you are reporting on."],
             ])
         ),
         

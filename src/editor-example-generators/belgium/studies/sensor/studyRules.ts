@@ -13,13 +13,6 @@ intake();
 sensorLink();
 diary();
 
-export interface RulesOptions {
-    diaryResubmitHours: number;
-}
-
-export const rulesOptions = {
-    diaryResubmitHours: 8, // leave 8 hours for next workday
-};
 
 /**
  * Define what should happen, when persons enter the study first time:
@@ -28,11 +21,11 @@ export const rulesOptions = {
 const entryRules: Expression[] = [
     StudyEngine.participantActions.assignedSurveys.add(
         intake.key,
-        "normal",
+        "prio",
     ),
     StudyEngine.participantActions.assignedSurveys.add(
         sensorLink.key,
-        "normal",
+        "prio",
     ),
 ];
 
@@ -70,10 +63,7 @@ const handleDiary = StudyEngine.ifThen(
     ),
     StudyEngine.participantActions.assignedSurveys.add(
         diary.key,
-        "prio",
-        StudyEngine.timestampWithOffset({
-            hours: rulesOptions.diaryResubmitHours,
-        }),
+        "prio"
     ),
 );
 

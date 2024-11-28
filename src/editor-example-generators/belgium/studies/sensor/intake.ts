@@ -43,10 +43,10 @@ const intake = <IntakeDef>((): Survey | undefined => {
     ));
     survey.setSurveyDuration(generateLocStrings(
         new Map([
-            ["en", "It takes approximately 5-15 minutes to complete this questionnaire."],
-            ["nl-be", "It takes approximately 5-15 minutes to complete this questionnaire."],
-            ["fr-be", "It takes approximately 5-15 minutes to complete this questionnaire."],
-            ["de-be", "It takes approximately 5-15 minutes to complete this questionnaire."],
+            ["en", "It takes approximately 1-2 minutes to complete this questionnaire."],
+            ["nl-be", "It takes approximately 1-2 minutes to complete this questionnaire."],
+            ["fr-be", "It takes approximately 1-2 minutes to complete this questionnaire."],
+            ["de-be", "It takes approximately 1-2 minutes to complete this questionnaire."],
         ])
     ));
 
@@ -77,7 +77,7 @@ const intake = <IntakeDef>((): Survey | undefined => {
     survey.addExistingSurveyItem(Q_amount_of_people, rootKey);
 
     // FOR TESTING PURPOSES
-    survey.setAvailableFor('public');
+    // survey.setAvailableFor('public');
 
     return survey.getSurvey();
 })
