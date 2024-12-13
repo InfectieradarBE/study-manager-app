@@ -67,7 +67,10 @@ const sensorLink = <SensorLinkDef>((): Survey | undefined => {
     // FOR TESTING PURPOSES
     // survey.setAvailableFor('public');
 
-    return survey.getSurvey();
+    const surveyObject = survey.getSurvey();
+    surveyObject.requireLoginBeforeSubmission = true;
+
+    return surveyObject;
 })
 
 export default sensorLink;

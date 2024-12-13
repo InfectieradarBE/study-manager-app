@@ -78,8 +78,11 @@ const intake = <IntakeDef>((): Survey | undefined => {
 
     // FOR TESTING PURPOSES
     // survey.setAvailableFor('public');
+    
+    const surveyObject = survey.getSurvey();
+    surveyObject.requireLoginBeforeSubmission = true;
 
-    return survey.getSurvey();
+    return surveyObject;
 })
 
 export default intake;
